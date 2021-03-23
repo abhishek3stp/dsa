@@ -1,19 +1,23 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void merge(int a[], int s, int e)
+int merge(int a[], int s, int e)
 {
     int mid = (s + e) / 2;
     int i = s, j = mid + 1, k = s;
 
     int temp[1000];
+    int count = 0;
 
     while (i <= mid && j <= e)
     {
         if (a[i] <= a[j])
             temp[k++] = a[i++];
         else
+        {
             temp[k++] = a[j++];
+            count += (mid - i + 1);
+        }
     }
 
     while (i <= mid)
@@ -24,28 +28,27 @@ void merge(int a[], int s, int e)
 
     for (i = s; i <= e; i++)
         a[i] = temp[i];
+
+    return count;
 }
 
-void mergeSort(int a[], int s, int e)
+int inversionCount(int a[], int s, int e)
 {
     if (s >= e)
-        return;
+        return 0;
 
     int mid = (s + e) / 2;
-    mergeSort(a, s, mid);
-    mergeSort(a, mid + 1, e);
+    int x = inversionCount(a, s, mid);
+    int y = inversionCount(a, mid + 1, e);
+    int z = merge(a, s, e);
 
-    merge(a, s, e);
+    return x + y + z;
 }
 
 int main()
 {
-    int a[] = {2, 15, 10, 7, 0, 13};
+    int a[] = {1, 5, 2, 6, 3, 0};
     int n = sizeof(a) / sizeof(a[0]);
 
-    mergeSort(a, 0, n - 1);
-
-    for (int i = 0; i < n; i++)
-        cout << a[i] << ", ";
-    cout << endl;
+    cout << inversionCount(a, 0, n - 1) << endl;
 }

@@ -1,25 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void selectionSort(int arr[], int n)
+void selectionSort(int a[], int n)
 {
-	int min_idx;
 	for (int i = 0; i < n - 1; i++)
 	{
-		min_idx = i;
+		int min_index = i;
+
 		for (int j = i + 1; j < n; j++)
-			if (arr[j] < arr[min_idx])
-				min_idx = j;
-		swap(arr[min_idx], arr[i]);
+			if (a[j] < a[min_index])
+				min_index = j;
+
+		swap(a[min_index], a[i]);
 	}
 }
 
 int main()
 {
-	int arr[] = {1, 22, 12, 22, 11};
-	int n = sizeof(arr) / sizeof(arr[0]);
-	selectionSort(arr, n);
+	int a[] = {2, 15, 10, 7, 0, 13};
+	int n = sizeof(a) / sizeof(a[0]);
+
+	selectionSort(a, n);
+
 	for (int i = 0; i < n; i++)
-		cout << arr[i] << ", ";
-	return 0;
+		cout << a[i] << ", ";
+	cout << endl;
 }
