@@ -43,7 +43,16 @@ public:
         vector<bool> visit(v, false);
         vector<bool> stack(v, false);
 
-        return dfs_helper(0, visit, stack);
+        bool flag = false;
+        for (int i = 0; i < v; i++)
+        {
+            if (visit[i] == false)
+            {
+                if (dfs_helper(i, visit, stack))
+                    flag = true;
+            }
+        }
+        return flag;
     }
 };
 
